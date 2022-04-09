@@ -19,7 +19,7 @@
 
 ### Vision:
 
-This product is an online heart disease diagnosis system. It could systematically check patient symptoms, help identify heart disease, and generate health reports. One the one hand, this product helps patients to save time and cost for general doctor consultation; on the other hand, it also improves health outcomes and medical resources allocations.
+According to [CDC](https://www.cdc.gov/heartdisease/facts.htm), heart disease is the leading cause of death for men, women, and people of most racial and ethnic groups in the United States. About 659,000 people in the United States die from heart disease each year—that’s 1 in every 4 deaths. This product is an online heart disease diagnosis system. It could systematically process patient symptoms, help identify heart disease, and generate health reports. This product saves patients time and cost for general doctor consultation, and improves health outcomes and medical resources allocations.
 
 ### Mission: 
 
