@@ -14,22 +14,22 @@
 
 ## Project Charter
 
-### Vision:
+### Vision
 
 According to [CDC](https://www.cdc.gov/heartdisease/facts.htm), heart disease is the leading cause of death for men, women, and people of most racial and ethnic groups in the United States. About 659,000 people in the United States die from heart disease each year—that’s 1 in every 4 deaths. This product is an online heart disease diagnosis system. It could systematically process patient symptoms, generate health reports, and help identify heart diseases. This product saves patients time and cost for general doctor consultation, and improves health outcomes and medical resources allocations.
 
-### Mission: 
+### Mission
 
 This product aims to make online heart disease diagnoses by predicting the presence of the heart disease based on patients’ answer to a series of questions about their heath status. It would also generate a summary report about their health conditions for the reference of the patients and doctors. The dataset used for this project was obtained from [Personal Key Indicators of Heart Disease](https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease).
 
-### Success criteria:
+### Success criteria
 
 Model Performance Metrics
 * This product is based on a machine learning classifier. The Machine Learning metric for the model evaluation is False Positive rate, because it is important to minimize the probability that a person with heart diseases is diagnosed incorrectly. A 10% False Positive rate denotes success.
 
 Business Metrics
 * Number of health reports generated per day: it measures the number of patients for online consultation.
-* Abandon rate: it measures the number of users who did not complete the entire health check surveys.
+* Abandon rate: it measures the number of users who do not complete the entire health check surveys.
 
 
 
