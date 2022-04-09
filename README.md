@@ -2,9 +2,9 @@
 
 # Table of Contents
 * [Project Charter](#Project-Charter)
-	* [Vision](#-Vision)
-	* [Mission](#-Mission)
-	* [Success Criteria](#-Success-Criteria)
+	* [Vision](#Vision)
+	* [Mission](#Mission)
+	* [Success Criteria](#Success-Criteria)
 * [Directory structure ](#Directory-structure)
 * [Running the app ](#Running-the-app)
 	* [1. Initialize the database ](#1.-Initialize-the-database)
