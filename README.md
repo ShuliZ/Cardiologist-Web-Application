@@ -31,7 +31,8 @@ Model Performance Metric
 * This product is based on a machine learning classifier. The Machine Learning metric for the model evaluation is False Positive rate, because it is more important that a person with a heart disease is not reported correctly. A 10% False Positive rate denotes success.
 
 Business Metric
-* The Business metric for the product is the number of health reports generated, which is a proxy for DAU. 
+* Daily number of health reports generated: this is a proxy for DAU indicating the number of patients for online consultation.
+* Abandon rate: it measures the number of users who did not complete the health check surveys.
 
 
 
