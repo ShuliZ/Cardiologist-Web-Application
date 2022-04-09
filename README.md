@@ -1,6 +1,10 @@
 # MSiA423 Template Repository
 
 # Table of Contents
+* [Project Charter](#Project-Charter)
+	* [Vision](#-Vision)
+	* [Mission](#-Mission)
+	* [Success Criteria](#-Success-Criteria)
 * [Directory structure ](#Directory-structure)
 * [Running the app ](#Running-the-app)
 	* [1. Initialize the database ](#1.-Initialize-the-database)
@@ -9,6 +13,25 @@
 * [Testing](#Testing)
 * [Mypy](#Mypy)
 * [Pylint](#Pylint)
+
+
+## Project Charter
+
+### Vision:
+
+This product is an online heart disease diagnosis system. It could systematically check patient symptoms, help identify heart disease, and generate health reports. One the one hand, this product helps patients to save time and cost for general doctor consultation; on the other hand, it also improves health outcomes and medical resources allocations.
+
+### Mission: 
+
+This product aims to make online heart disease diagnoses by predicting the presence of the heart disease based on patients’ answer to a series of questions about their heath status. It would also generate a summary report on their health conditions for the reference of the patients and doctors. The dataset used for this project was obtained from [Personal Key Indicators of Heart Disease](https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease).
+
+### Success criteria:
+
+Model Performance Metric
+* This product is based on a machine learning classifier. The Machine Learning metric for the model evaluation is False Positive rate, because it is more important that a person with a heart disease is not reported correctly. A 10% False Positive rate denotes success.
+
+Business Metric
+* The Business metric for the product is the number of health reports generated, which is a proxy for DAU. 
 
 
 
