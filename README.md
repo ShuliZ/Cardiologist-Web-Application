@@ -19,7 +19,7 @@
 
 ### Vision:
 
-According to [CDC](https://www.cdc.gov/heartdisease/facts.htm), heart disease is the leading cause of death for men, women, and people of most racial and ethnic groups in the United States. About 659,000 people in the United States die from heart disease each year—that’s 1 in every 4 deaths. This product is an online heart disease diagnosis system. It could systematically process patient symptoms, help identify heart disease, and generate health reports. This product saves patients time and cost for general doctor consultation, and improves health outcomes and medical resources allocations.
+According to [CDC](https://www.cdc.gov/heartdisease/facts.htm), heart disease is the leading cause of death for men, women, and people of most racial and ethnic groups in the United States. About 659,000 people in the United States die from heart disease each year—that’s 1 in every 4 deaths. This product is an online heart disease diagnosis system. It could systematically process patient symptoms, generate health reports, and help identify heart diseases. This product saves patients time and cost for general doctor consultation, and improves health outcomes and medical resources allocations.
 
 ### Mission: 
 
@@ -27,10 +27,10 @@ This product aims to make online heart disease diagnoses by predicting the prese
 
 ### Success criteria:
 
-Model Performance Metric
-* This product is based on a machine learning classifier. The Machine Learning metric for the model evaluation is False Positive rate, because it is more important that a person with a heart disease is not reported correctly. A 10% False Positive rate denotes success.
+Model Performance Metrics
+* This product is based on a machine learning classifier. The Machine Learning metric for the model evaluation is False Positive rate, because it is important to minimize the probability that a person with heart diseases is diagnosed incorrectly. A 10% False Positive rate denotes success.
 
-Business Metric
+Business Metrics
 * Daily number of health reports generated: this is a proxy for DAU indicating the number of patients for online consultation.
 * Abandon rate: it measures the number of users who did not complete the health check surveys.
 
