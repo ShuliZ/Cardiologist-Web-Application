@@ -23,7 +23,7 @@ According to [CDC](https://www.cdc.gov/heartdisease/facts.htm), heart disease is
 
 ### Mission: 
 
-This product aims to make online heart disease diagnoses by predicting the presence of the heart disease based on patients’ answer to a series of questions about their heath status. It would also generate a summary report on their health conditions for the reference of the patients and doctors. The dataset used for this project was obtained from [Personal Key Indicators of Heart Disease](https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease).
+This product aims to make online heart disease diagnoses by predicting the presence of the heart disease based on patients’ answer to a series of questions about their heath status. It would also generate a summary report about their health conditions for the reference of the patients and doctors. The dataset used for this project was obtained from [Personal Key Indicators of Heart Disease](https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease).
 
 ### Success criteria:
 
@@ -31,8 +31,8 @@ Model Performance Metrics
 * This product is based on a machine learning classifier. The Machine Learning metric for the model evaluation is False Positive rate, because it is important to minimize the probability that a person with heart diseases is diagnosed incorrectly. A 10% False Positive rate denotes success.
 
 Business Metrics
-* Daily number of health reports generated: this is a proxy for DAU indicating the number of patients for online consultation.
-* Abandon rate: it measures the number of users who did not complete the health check surveys.
+* Number of health reports generated per day: it measures the number of patients for online consultation.
+* Abandon rate: it measures the number of users who did not complete the entire health check surveys.
 
 
 
