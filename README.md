@@ -25,7 +25,7 @@ This product aims to make online heart disease diagnoses by predicting the prese
 ### Success criteria
 
 Model Performance Metrics
-* This product is based on a machine learning classifier. The Machine Learning metric for the model evaluation is False Positive rate, because it is important to minimize the probability that a person with heart diseases is diagnosed incorrectly. A 10% False Positive rate denotes success.
+* This product is based on a machine learning classifier. The Machine Learning metric for the model evaluation is False Negative rate, because it is important to minimize the probability that a person with heart diseases is diagnosed incorrectly. A 10% False Negative rate denotes success.
 
 Business Metrics
 * Number of health reports generated per day: it measures the number of patients for online consultation.
@@ -82,21 +82,91 @@ Business Metrics
 
 ## Running the app 
 
+### 0. Setup
+#### Data Source
+
+The dataset used in the project is from [Personal Key Indicators of Heart Disease](https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease). Since the size of the dataset is small, it is already downloaded and stored in the following path: data/sample/heart_2020_cleaned.csv.
+
+
+#### Build Docker Image
+
+In order to perform data acquisition, processing, or modeling, please run the following commands to build the docker image:
+
+```bash
+make image
+```
+
+
+#### AWS Credentials Configuration
+To access AWS S3, AWS CLI will look for environment variables named AWS_ACCESS_KEY_ID  and AWS_SECRET_ACCESS_KEY to acquire your credentials. Please  configure your AWS credentials as follows:
+
+```bash
+export AWS_ACCESS_KEY_ID=<YOUR_ACCESS_KEY_ID>
+export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRET_ACCESS_KEY>"
+```
+
+
+#### Upload data to S3
+Please run the following command to upload the data from local to S3:
+```bash
+make upload_file_to_s3
+```
+
+
+#### Download data from S3
+The dataset is already in the data/sample folder. If you want to acquire the dataset from S3, please run the following command:
+```bash
+make download_file_from_s3
+```
+
+
 ### 1. Initialize the database 
-#### Build the image 
-
-To build the image, run from this directory (the root of the repo): 
-
-```bash
- docker build -f dockerfiles/Dockerfile.run -t pennylanedb .
-```
-#### Create the database 
-To create the database in the location configured in `config.py` run: 
+#### Create the database locally
+To create the database locally, please run the following command:
 
 ```bash
-docker run --mount type=bind,source="$(pwd)"/data,target=/app/data/ pennylanedb create_db  --engine_string=sqlite:///data/tracks.db
+make create_db_local
 ```
-The `--mount` argument allows the app to access your local `data/` folder and save the SQLite database there so it is available after the Docker container finishes.
+
+#### Create the database on RDS
+To create the databse on RDS, please first set the environment variables for database connection details:
+
+export MYSQL_HOST=<YOUR_HOST_URL>
+export MYSQL_USER=<YOUR_USERNAME>
+export MYSQL_PASSWORD=<YOUR_PASSWORD>
+export MYSQL_PORT="3306"
+export DATABASE_NAME="msia423_db"
+
+* Set MYSQL_HOST to be the RDS instance endpoint from the console.
+* Set MYSQL_USER to the "master username" that you used to create the database server.
+* Set MYSQL_PASSWORD to the "master password" that you used to create the database server.
+
+If you wish, you can store your database connection details in a local file that is ignored from git. You can name this .mysqlconfig to write the above commands into .mysqlconfig:
+
+```bash
+vi .mysqlconfig
+```
+
+Remember, in `vim`, you press `i` to activate insert mode, and then `esc` to return to normal mode. From normal mode, `:wq` (command: write quit) will save your changes and close `vim`.
+
+Please run the following command to update the .mysqlconfig file: 
+
+```bash
+source .mysqlconfig
+```
+
+To Using your database with SQLAlchemy:
+
+```bash
+make create_db_rds
+```
+
+
+Start a MySQL client and connect to your database:
+
+```bash
+make connect_db
+```
 
 
 #### Adding songs 
