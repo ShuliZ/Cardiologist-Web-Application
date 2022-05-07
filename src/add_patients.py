@@ -1,4 +1,4 @@
-"""Creates database of patient health status, 
+"""Creates database of patient health status,
 and adds new data to the database"""
 import logging.config
 import sqlite3
@@ -18,7 +18,7 @@ class Patient(Base):
     """Creates a data model for the database to be set up for patient health records.
     """
 
-    __tablename__ = 'patient'
+    __tablename__ = "patient"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     BMI = Column(Float, unique=False, nullable=False)
@@ -40,9 +40,9 @@ class Patient(Base):
     SkinCancer = Column(String(100), unique=False, nullable=False)
 
     logger.info("Created data model patient.")
-    # what is the return type??????????????????????????????????????????????????????
-    def __repr__(self):
-        return f'<Patient {self.title}>'
+
+    def __repr__(self) -> str:
+        return f"<Patient {self.title}>"
 
 def create_db(engine_string: str) -> None:
     """Create database with Patient() data model from provided engine string.
@@ -95,7 +95,7 @@ class PatientManager:
         self.session.close()
 
     def add_patient(self, bmi: float, smoking: str, alcohol_drinking: str,
-                    stroke: str, physical_health: float, mental_health: float, 
+                    stroke: str, physical_health: float, mental_health: float,
                     diff_walking: str, sex: str, age_category: str, race: str,
                     diabetic: str, physical_activity: str, gen_health: str,
                     sleep_time: float, asthma: str, kidney_disease: str,
@@ -108,29 +108,33 @@ class PatientManager:
         Returns:
             None
         """
-        try:
-            session = self.session
-            patient = Patient(BMI = bmi,
-                              Smoking = smoking,
-                              AlcoholDrinking = alcohol_drinking,
-                              Stroke = stroke,
-                              PhysicalHealth = physical_health,
-                              MentalHealth = mental_health,
-                              DiffWalking = diff_walking,
-                              Sex = sex,
-                              AgeCategory = age_category,
-                              Race = race,
-                              Diabetic = diabetic,
-                              PhysicalActivity = physical_activity,
-                              GenHealth = gen_health,
-                              SleepTime = sleep_time,
-                              Asthma = asthma,
-                              KidneyDisease = kidney_disease,
-                              SkinCancer = skin_cancer)
-            session.add(patient)
-            session.commit()
-            logger.info("A new patient case is added to database.")
-        except sqlalchemy.exc.OperationalError:
-            logger.error("Fail to connect to server. Please check \
-                            if you are connected to Northwestern VPN.")
-
+        # try:
+        #     session = self.session
+        #     patient = Patient(BMI = bmi,
+        #                       Smoking = smoking,
+        #                       AlcoholDrinking = alcohol_drinking,
+        #                       Stroke = stroke,
+        #                       PhysicalHealth = physical_health,
+        #                       MentalHealth = mental_health,
+        #                       DiffWalking = diff_walking,
+        #                       Sex = sex,
+        #                       AgeCategory = age_category,
+        #                       Race = race,
+        #                       Diabetic = diabetic,
+        #                       PhysicalActivity = physical_activity,
+        #                       GenHealth = gen_health,
+        #                       SleepTime = sleep_time,
+        #                       Asthma = asthma,
+        #                       KidneyDisease = kidney_disease,
+        #                       SkinCancer = skin_cancer)
+        #     session.add(patient)
+        #     session.commit()
+        #     logger.info("A new patient case is added to database.")
+        # except sqlite3.OperationalError as e:
+        #     logger.error(
+        #         "Error page returned. Not able to add song to local sqlite "
+        #         "database: %s. Is it the right path? Error: %s ",
+        #         args.engine_string, e)
+        # except sqlalchemy.exc.OperationalError:
+        #     logger.error("Fail to connect to server. Please check \
+        #                     if you are connected to Northwestern VPN.")
