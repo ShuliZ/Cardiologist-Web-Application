@@ -101,13 +101,14 @@ make image
 To access AWS S3, AWS CLI will look for environment variables named AWS_ACCESS_KEY_ID  and AWS_SECRET_ACCESS_KEY to acquire your credentials. Please  configure your AWS credentials as follows:
 
 ```bash
-export AWS_ACCESS_KEY_ID=<YOUR_ACCESS_KEY_ID>
-export AWS_SECRET_ACCESS_KEY="<YOUR_AWS_SECRET_ACCESS_KEY>"
+export AWS_ACCESS_KEY_ID="YOUR_ACCESS_KEY_ID"
+export AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY"
 ```
 
 
 #### Upload data to S3
 Please run the following command to upload the data from local to S3:
+
 ```bash
 make upload_file_to_s3
 ```
@@ -128,18 +129,27 @@ To create the database locally, please run the following command:
 make create_db_local
 ```
 
+By default, `run.py create_db` creates a local SQLite database at `sqlite:///data/patient.db`. You could also input a specific engine string by running:
+
+```bash
+docker run --mount type=bind,source="$(shell pwd)",target=/app/ heart_disease run.py create_db --engine_string=<YOUR_ENGINE_STRING>
+```
+
+
 #### Create the database on RDS
 To create the databse on RDS, please first set the environment variables for database connection details:
 
-export MYSQL_HOST=<YOUR_HOST_URL>
-export MYSQL_USER=<YOUR_USERNAME>
-export MYSQL_PASSWORD=<YOUR_PASSWORD>
-export MYSQL_PORT="3306"
-export DATABASE_NAME="msia423_db"
+```bash
+export MYSQL_HOST="YOUR_HOST_URL"
+export MYSQL_USER="YOUR_USERNAME"
+export MYSQL_PASSWORD="YOUR_PASSWORD"
+export MYSQL_PORT="YOUR_PORT"
+export DATABASE_NAME="YOUR_DATABASE"
+```
 
-* Set MYSQL_HOST to be the RDS instance endpoint from the console.
-* Set MYSQL_USER to the "master username" that you used to create the database server.
-* Set MYSQL_PASSWORD to the "master password" that you used to create the database server.
+* Set `MYSQL_HOST` to be the RDS instance endpoint from the console.
+* Set `MYSQL_USER` to the "master username" that you used to create the database server.
+* Set `MYSQL_PASSWORD` to the "master password" that you used to create the database server.
 
 If you wish, you can store your database connection details in a local file that is ignored from git. You can name this .mysqlconfig to write the above commands into .mysqlconfig:
 
