@@ -3,6 +3,6 @@ SQLAlchemy==1.4.34
 PyYAML==6.0
 Flask==2.1.1
 pymysql==1.0.2
-botocore== 1.25.6
+botocore== 1.25.8
 boto3==1.22.8
 pandas==1.4.2
