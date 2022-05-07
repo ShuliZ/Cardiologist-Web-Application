@@ -1,7 +1,7 @@
 .PHONY: image
 
 image:
-	docker build -f Dockerfile -t heart_disease .
+	docker build -f dockerfiles/Dockerfile -t heart_disease .
 
 .PHONY: upload_file_to_s3 download_file_from_s3
 
