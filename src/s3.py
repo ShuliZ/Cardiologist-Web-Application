@@ -20,7 +20,7 @@ def parse_s3(path: str) -> typing.Tuple[str, str]:
         path (str): S3 path
     """
     # match the input path to the desired patterns
-    regex = r"s3://([\w._-]+)/([\w./_-]+)"
+    regex = r's3://([\w._-]+)/([\w./_-]+)'
     matched = re.match(regex, path)
     # get bucke and path names
     s3bucket = matched.group(1)
@@ -41,8 +41,8 @@ def upload_file_to_s3(local_path: str, s3_path: str) -> None:
     s3bucket, s3path = parse_s3(s3_path)
 
     # find bucket to upload files
-    s3 = boto3.resource("s3")
-    bucket = s3.Bucket(s3bucket)
+    resc = boto3.resource('s3')
+    bucket = resc.Bucket(s3bucket)
     try:
         bucket.upload_file(local_path, s3path)
     except botocore.exceptions.NoCredentialsError:
@@ -64,12 +64,12 @@ def download_file_from_s3(local_path: str, s3_path: str) -> None:
     s3bucket, s3path = parse_s3(s3_path)
 
     # find bucket to download files
-    s3 = boto3.resource("s3")
-    bucket = s3.Bucket(s3bucket)
+    resc = boto3.resource('s3')
+    bucket = resc.Bucket(s3bucket)
     try:
         bucket.download_file(s3path, local_path)
     except botocore.exceptions.NoCredentialsError:
         logger.error('Please provide AWS credentials via AWS_ACCESS_KEY_ID '
                      'and AWS_SECRET_ACCESS_KEY env variables.')
     else:
-        logger.info("Data downloaded from %s to %s", s3_path, local_path)
+        logger.info('Data downloaded from %s to %s', s3_path, local_path)
