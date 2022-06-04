@@ -1,0 +1,56 @@
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      h1 {
+        text-align: center;
+        color: #424242;
+      }
+      p {
+      text-align: center;
+      font-weight: bold;
+      color: #424242;
+      }
+      div {text-align: center}
+      body {
+        background-color: #ffd4d48b
+      }
+    </style>
+
+    <link href="static/basic.css" rel="stylesheet">
+
+    <title>Prediction Results</title>
+  </head>
+  <body>
+    <h1>Prediction Results for the patient</h1>
+
+    <hr/>
+
+    <p>
+      Prediction Result: {{ user_pred_text }}
+    </p>
+    
+    <p>
+      Probability of Heart Disease: {{ user_pred_prob }}%
+    </p>
+
+    <br/>
+    <div>
+      <a href="{{ url_for('index') }}" style = "text-align:center;">Return to the Main Menu to Get More Predictions</a>
+    </div>
+    <br/>
+
+    
+    <br/>
+
+    <!-- Style for the landing page: Bootstrap Bundle with Popper -->
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"
+    ></script>
+
+  </body>
+</html>
