@@ -1,0 +1,130 @@
+feature:
+  get_binary_data:
+    binary_col:
+      - HeartDisease
+      - Smoking
+      - AlcoholDrinking
+      - Stroke
+      - Asthma
+      - DiffWalking
+      - PhysicalActivity
+      - KidneyDisease
+      - SkinCancer
+  get_ohe_data:
+    onehot_col:
+      - Sex
+      - Race
+      - Diabetic
+  get_ordinalenc_age:
+    age_col: 'AgeCategory'
+    age_mapping:
+      '18-24': 0
+      '25-29': 1
+      '30-34': 2
+      '35-39': 3
+      '40-44': 4
+      '45-49': 5
+      '50-54': 6
+      '55-59': 7
+      '60-64': 8
+      '65-69': 9
+      '70-74': 10
+      '75-79': 11
+      '80 or older': 12
+  get_ordinalenc_health:
+    health_col: 'GenHealth'
+    health_mapping:
+      'Poor': 0
+      'Fair': 1
+      'Good': 2
+      'Very good': 3
+      'Excellent': 4
+model:
+  train:
+    target: 'HeartDisease'
+    sampling_strat: 'majority'
+    rand_state: 10
+    test_prop: 0.2
+    n_estimate: 200
+  evaluate:
+    save_path: data/model/evaluation_result.csv
+predict:
+  input_feature_engineer:
+    num_col:
+      - BMI
+      - PhysicalHealth
+      - MentalHealth
+      - SleepTime
+    binary_col:
+      - Smoking
+      - AlcoholDrinking
+      - Stroke
+      - Asthma
+      - DiffWalking
+      - PhysicalActivity
+      - KidneyDisease
+      - SkinCancer
+    onehot_col:
+      - Sex
+      - Race
+      - Diabetic
+    required_col:
+      - Race_Asian
+      - Race_Black
+      - Race_Hispanic
+      - Race_Other
+      - Race_White
+      - Diabetic_No, borderline diabetes
+      - Diabetic_Yes
+      - Diabetic_Yes (during pregnancy)
+      - Sex_Male
+    age_col:
+      'AgeCategory'
+    age_mapping:
+      '18-24': 0
+      '25-29': 1
+      '30-34': 2
+      '35-39': 3
+      '40-44': 4
+      '45-49': 5
+      '50-54': 6
+      '55-59': 7
+      '60-64': 8
+      '65-69': 9
+      '70-74': 10
+      '75-79': 11
+      '80 or older': 12
+    health_col:
+      'GenHealth'
+    health_mapping:
+      'Poor': 0
+      'Fair': 1
+      'Good': 2
+      'Very good': 3
+      'Excellent': 4
+  input_predict:
+    model_path: models/rf.joblib
+    transformed_col:
+      - BMI
+      - Smoking
+      - AlcoholDrinking
+      - Stroke
+      - PhysicalHealth
+      - MentalHealth
+      - DiffWalking
+      - AgeCategory
+      - PhysicalActivity
+      - GenHealth
+      - SleepTime
+      - Asthma
+      - KidneyDisease
+      - SkinCancer
+      - Race_Asian
+      - Race_Black
+      - Race_Hispanic
+      - Race_Other
+      - Race_White
+      - Diabetic_No, borderline diabetes
+      - Diabetic_Yes
+      - Diabetic_Yes (during pregnancy)
+      - Sex_Male
