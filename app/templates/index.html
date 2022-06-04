@@ -3,41 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <link href="static/basic.css" rel="stylesheet">
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: rgb(210, 227, 251);
+      }
+
+      h1 {
+        font-size: 50px;
+      }
+
+      h2 {
+        font-size: 35px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      p {
+        font-size: 20px;
+      }
+
+      label {
+        text-align: justify;
+        text-justify: inter-word;
+        color: #303030;
+      }
+      input {
+        text-align: justify;
+        text-justify: inter-word;
+        color: #303030;
+      }
+
+      .header-container {
+        padding: 15px 15px 10px 10px;
+        background-position: 50% 50%;
+        background-size: cover;
+        background-color: rgb(247, 249, 255);
+      }
+      
+      .header-menu-container {
+        margin: 0px;
+        padding: 0%;
+        text-align: left;
+      }
+
+      .body-container {
+        background-color: rgb(247, 249, 255);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      .body-element {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex:1;
+      }
+      .left {
+        line-height: 1.5 ;
+        margin: 5%;
+        padding-left: 15px;
+        padding-right: 15px;
+        height: 100%;
+        background-color: rgb(247, 249, 255);
+      }
+      .right {
+        margin: 8%;
+        padding-left: 15px;
+        padding-right: 15px;
+        height: 100%;
+        background-color: rgb(203, 216, 254);
+      }
+
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: rgb(203, 216, 254);
+      }
+
+      li {
+        float: left;
+      }
+
+      li a {
+        display: block;
+        color: rgb(8, 8, 8);
+        text-align: center;
+        padding: 5px 20px;
+        text-decoration: none;
+      }
+
+      /* Change the link color to #111 (black) on hover */
+      li a:hover {
+        background-color: rgb(255, 191, 191);
+      }
+    </style>
+
+    <title>CARDIOLOGIST</title>
+
 </head>
 
 <body>
-    <h3>
-         <a href = "{{ url_for('index') }}">Penny Lane Music Recommender</a>
-    </h3>
+  <div class="header-container">
+    <img aslign="left" src="../static/logo.png" width=300px heigh=100px>
+  </div>
 
-    <hr/>
-    <table>
-         <thead>
-            <tr>
-               <th>Title</th>
-               <th>Artist</th>
-               <th>Album</th>
-            </tr>
-         </thead>
 
-         <tbody>
-            {% for track in tracks %}
-               <tr>
-                   <td>{{ track.title }}</td>
-                   <td>{{ track.artist }}</td>
-                   <td>{{ track.album }}</td>
-               </tr>
-            {% endfor %}
-         </tbody>
-      </table>
-      <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
-      <dl>
-        <input type=text size=15 name=title placeholder="Title">
-        <input type=text size=15 name=artist placeholder="Artist">
-        <input type=text size=15 name=album placeholder="Album">
-        <input type=submit value=Add>
-      </dl>
-    </form>
+  <div class="header-menu-container">
 
+    <ul>
+      <li><a href="default.asp">Home</a></li>
+      <li><a href="news.asp">About</a></li>
+      <li><a href="contact.asp">Contact Us</a></li>
+    </ul>
+
+  </div>
+
+  <div class="body-container">
+    <div class="body-element">
+      <div class="left">
+    
+        <h1>
+            How health is your heart?
+        </h1>
+
+        <h3>
+          Evaluate your heart health in the comfort of your home.
+        </h3>
+
+        <h2>Vision</h2>
+        <p>
+          According to CDC, heart disease is the leading cause of death for men, women, and people of most racial and ethnic groups in the United States. About 659,000 people in the United States die from heart disease each year—that's 1 in every 4 deaths. Our AI-empowered heart disease diagnosis system could process patient symptoms, and help identify coronary heart disease (CHD) or myocardial infarction (MI). This productsaves patients time and cost for general doctor consultation, and improves health outcomes and medical resources allocations.
+        </p>
+
+        <h2>
+          Mission
+        </h2>
+        <p>
+          This product aims to make online heart disease diagnoses by predicting the presence of the heart disease based on patients' answer to a series of questions about their heath status. It would also generate a summary report about their health conditions for the reference of the patients and doctors. The dataset used for this project was obtained from Personal Key Indicators of Heart Disease.
+        </p>
+      </div>
+    </div>
+
+    <div class="body-element">
+      <div class="right">
+        <h2>
+          Start Assessment:
+        </h2>
+
+        <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+          <dl>
+              <label>Gender: </label>
+              {% for gender in gender_category %}
+              <input type="radio" id="{{ gender }}" name="gender" value="{{ gender }}" checked/>
+              <label for="{{ gender }}">{{ gender }}</label>
+              {% endfor %}
+            <br/>
+    
+            <br/>
+
+              <label>Age: </label>
+              <select name= "age" method="POST" action="/" >
+                {% for age in age_category %}
+                    <option value= "{{age}}" selected>{{age}}</option>"
+                {% endfor %}
+              </select>
+
+            <br/>
+    
+            <br/>
+              <label>Race: </label>
+              <select name= race method="POST" action="/" >
+                {% for race in race_category %}
+                    <option value= "{{race}}" selected>{{race}}</option>"
+                {% endfor %}
+              </select>
+            <br/>
+
+            <br/>
+              <label for="bmi">BMI: </label>
+              <input type="number" step="0.01" id="bmi" name="bmi" min="0" max="100" value="0.00">
+            <br/>
+    
+            <br/>
+              <label>Have you smoked over 100 cigarettes in your entire life? </label>
+              {% for smoke in smoking %}
+              <input type="radio" id="{{ smoke }}" name="smoke" value="{{ smoke }}" checked/>
+              <label for="{{ smoke }}">{{ smoke }}</label>
+              {% endfor %}
+            <br/>
+    
+            <br/>
+              <label>Are you a heavy drinker?</label>
+              {% for drink in alcohol_drinking %}
+              <input type="radio" id="{{ drink }}" name="drink" value="{{ drink }}" checked/>
+              <label for="{{ drink }}">{{ drink }}</label>
+              {% endfor %}
+    
+            <br/>
+    
+            <br/>
+              <label>Have you experienced any stroke?</label>
+              {% for stroke in strok_category %}
+              <input type="radio" id="{{ stroke }}" name="stroke" value="{{ stroke }}" checked/>
+              <label for="{{ stroke }}">{{ stroke }}</label>
+              {% endfor %}
+            <br/>
+            
+            <br/>
+              <label for="physical_health">For how many days during the past 30 days was your physical health not good? </label>
+              <input type="number" id="physical_health" name="physical_health" min="0" max="30" value="0">
+            <br/>
+    
+            <br/>
+              <label for="mental_health">For how many days during the past 30 days was your mental health not good?</label>
+              <input type="number" id="mental_health" name="mental_health" min="0" max="30" value="0">
+            <br/>
+    
+            <br/>
+              <label>Do you have serious difficulty walking or climbing stairs?</label>
+              {% for walk in diff_walking %}
+              <input type="radio" id="{{ walk }}" name="walk" value="{{ walk }}" checked/>
+              <label for="{{ walk }}">{{ walk }}</label>
+              {% endfor %}
+            <br/>
+    
+            <br/>
+              <label>Have you had diabetes: </label>
+              <select name= diabetes method="POST" action="/" >
+                {% for diabetes in diabetes_category %}
+                    <option value= "{{diabetes}}" selected>{{diabetes}}</option>"
+                {% endfor %}
+              </select>
+
+            <br/>
+    
+            <br/>
+              <label>Did you do exercise during the past 30 days? </label>
+              {% for activity in physical_activity %}
+              <input type="radio" id="{{ activity }}" name="activity" value="{{ activity }}" checked/>
+              <label for="{{ activity }}">{{ activity }}</label>
+              {% endfor %}
+            <br/>
+    
+            <br/>
+              <label for="sleep_time">On average, how many hours of sleep do you get in a 24-hour period? </label>
+              <input type="number" id="sleep_time" name="sleep_time" min="0" max="24" value="0">
+            <br/>
+    
+            <br/>
+              <label>Were you ever told you had asthma? </label>
+              {% for asthma in asthma_category %}
+              <input type="radio" id="{{ asthma }}" name="asthma" value="{{ asthma }}" checked/>
+              <label for="{{ asthma }}">{{ asthma }}</label>
+              {% endfor %}
+            <br/>
+    
+            <br/>
+              <label>Were you ever told you had kidney disease? </label>
+              {% for kidney in kidney_disease %}
+              <input type="radio" id="{{ kidney }}" name="kidney" value="{{ kidney }}" checked/>
+              <label for="{{ kidney }}">{{ kidney }}</label>
+              {% endfor %}
+            <br/>
+    
+            <br/>
+              <label>Were you ever told you had skin cancer: </label>
+              {% for skin in skin_cancer %}
+              <input type="radio" id="{{ skin }}" name="skin" value="{{ skin }}" checked/>
+              <label for="{{ skin }}">{{ skin }}</label>
+              {% endfor %}
+            <br/>
+    
+            <br/>
+              <label>Rate your health in general: </label>
+              <select name= gen method="POST" action="/" >
+                {% for gen in gen_health %}
+                    <option value= "{{gen}}" selected>{{gen}}</option>"
+                {% endfor %}
+              </select>
+              
+            <br/>
+            
+            <br/>
+            <input type=submit value="Submit">
+          <dl>
+        <form>
+      </div>
+  </div>
 </body>
 </html>
