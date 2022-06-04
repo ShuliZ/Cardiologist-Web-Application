@@ -25,7 +25,7 @@ class Patient(Base):
     Smoking = Column(String(100), unique=False, nullable=False)
     AlcoholDrinking = Column(String(100), unique=False, nullable=False)
     Stroke = Column(String(100), unique=False, nullable=False)
-    PhysicalHealth = Column(String(100), unique=False, nullable=False)
+    PhysicalHealth = Column(Float, unique=False, nullable=False)
     MentalHealth = Column(Float, unique=False, nullable=False)
     DiffWalking = Column(String(100), unique=False, nullable=False)
     Sex = Column(String(100), unique=False, nullable=False)
@@ -95,11 +95,11 @@ class PatientManager:
         self.session.close()
 
     def add_patient(self, bmi: float, smoking: str, alcohol_drinking: str,
-                    stroke: str, physical_health: float, mental_health: float,
-                    diff_walking: str, sex: str, age_category: str, race: str,
-                    diabetic: str, physical_activity: str, gen_health: str,
-                    sleep_time: float, asthma: str, kidney_disease: str,
-                    skin_cancer: str) -> None:
+                    strok_category: str, physical_health: float, mental_health: float,
+                    diff_walking: str, gender_category: str, age_category: str, 
+                    race_category: str, diabetes_category: str, physical_activity: str, 
+                    gen_health: str, sleep_time: float, asthma_category: str, 
+                    kidney_disease: str, skin_cancer: str) -> None:
         """Seeds an existing database with additional patient cases.
 
         Args:
@@ -108,33 +108,30 @@ class PatientManager:
         Returns:
             None
         """
-        # try:
-        #     session = self.session
-        #     patient = Patient(BMI = bmi,
-        #                       Smoking = smoking,
-        #                       AlcoholDrinking = alcohol_drinking,
-        #                       Stroke = stroke,
-        #                       PhysicalHealth = physical_health,
-        #                       MentalHealth = mental_health,
-        #                       DiffWalking = diff_walking,
-        #                       Sex = sex,
-        #                       AgeCategory = age_category,
-        #                       Race = race,
-        #                       Diabetic = diabetic,
-        #                       PhysicalActivity = physical_activity,
-        #                       GenHealth = gen_health,
-        #                       SleepTime = sleep_time,
-        #                       Asthma = asthma,
-        #                       KidneyDisease = kidney_disease,
-        #                       SkinCancer = skin_cancer)
-        #     session.add(patient)
-        #     session.commit()
-        #     logger.info("A new patient case is added to database.")
-        # except sqlite3.OperationalError as e:
-        #     logger.error(
-        #         "Error page returned. Not able to add song to local sqlite "
-        #         "database: %s. Is it the right path? Error: %s ",
-        #         args.engine_string, e)
-        # except sqlalchemy.exc.OperationalError:
-        #     logger.error("Fail to connect to server. Please check \
-        #                     if you are connected to Northwestern VPN.")
+        try:
+            session = self.session
+            patient = Patient(BMI = bmi,
+                              Smoking = smoking,
+                              AlcoholDrinking = alcohol_drinking,
+                              Stroke = strok_category,
+                              PhysicalHealth = physical_health,
+                              MentalHealth = mental_health,
+                              DiffWalking = diff_walking,
+                              Sex = gender_category,
+                              AgeCategory = age_category,
+                              Race = race_category,
+                              Diabetic = diabetes_category,
+                              PhysicalActivity = physical_activity,
+                              GenHealth = gen_health,
+                              SleepTime = sleep_time,
+                              Asthma = asthma_category,
+                              KidneyDisease = kidney_disease,
+                              SkinCancer = skin_cancer)
+            session.add(patient)
+            session.commit()
+            logger.info("A new patient case is added to database.")
+        except sqlite3.OperationalError as e:
+            logger.error("Error page returned. Not able to add patient case to local sqlite.")
+        except sqlalchemy.exc.OperationalError:
+            logger.error("Fail to connect to server. Please check \
+                            if you are connected to Northwestern VPN.")
