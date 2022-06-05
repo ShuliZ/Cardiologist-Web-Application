@@ -14,7 +14,7 @@ from imblearn.under_sampling import RandomUnderSampler
 
 logger = logging.getLogger(__name__)
 
-def train(trans_df, target, sampling_strat, rand_state, test_prop, n_estimate):
+def train(trans_df, target, sampling_strat, rand_state, test_prop, n_estimate, min_split, min_leaf, max_depth):
     X = trans_df.drop([target], axis=1)
     y = trans_df[[target]].values.ravel()
 
@@ -28,7 +28,11 @@ def train(trans_df, target, sampling_strat, rand_state, test_prop, n_estimate):
     x_under, y_under = undersample.fit_resample(x_train, y_train)
 
     # random forest model
-    rf = sklearn.ensemble.RandomForestClassifier(n_estimators = n_estimate, random_state=rand_state)
+    rf = sklearn.ensemble.RandomForestClassifier(n_estimators=n_estimate,
+                                                min_samples_split= min_split,
+                                                min_samples_leaf=min_leaf,
+                                                max_depth=max_depth,
+                                                random_state = rand_state)
     rf.fit(x_under, y_under)
     return [rf, x_test, y_test]
 
