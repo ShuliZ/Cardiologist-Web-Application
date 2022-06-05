@@ -11,25 +11,49 @@ upload_file_to_s3:
 download_file_from_s3:
 	docker run --mount type=bind,source="$(shell pwd)",target=/app/ -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY final-project run.py download_file_from_s3
 
-.PHONY: create_db_local create_db_rds connect_db
+.PHONY: create_db
 
-create_db_local:
-	docker run --mount type=bind,source="$(shell pwd)",target=/app/ final-project run.py create_db
+create_db:
+	docker run -e SQLALCHEMY_DATABASE_URI --mount type=bind,source="$(shell pwd)"/,target=/app/ final-project run.py create_db
 
-create_db_rds:
-	docker run -it -e MYSQL_HOST -e MYSQL_PORT -e MYSQL_USER -e MYSQL_PASSWORD -e DATABASE_NAME final-project run.py create_db
 
-connect_db:
-	docker run --platform linux/x86_64 -it --rm mysql:5.7.33 mysql -h${MYSQL_HOST} -u${MYSQL_USER} -p${MYSQL_PASSWORD}
+.PHONY: acquire featurize train score evaluate feature_importance
 
-feature_engineer:
-	docker run --mount type=bind,source="$(shell pwd)",target=/app/ final-project run.py run_model_pipeline --step feature --input=data/sample/heart_2020_cleaned.csv --config=config/config.yaml --output=data/model/featurized.csv
+data/artifacts/cleaned.csv: download_file_from_s3
+	docker run --mount type=bind,source="$(shell pwd)",target=/app/ final-project run.py run_model_pipeline --step acquire --config config/config.yaml --output data/artifacts/cleaned.csv
 
-model:
-	docker run --mount type=bind,source="$(shell pwd)",target=/app/ final-project run.py run_model_pipeline --step model --input=data/model/featurized.csv --config=config/config.yaml --output=models/rf.joblib
+acquire: data/artifacts/cleaned.csv
+
+data/artifacts/featurized.csv: data/artifacts/cleaned.csv
+	docker run --mount type=bind,source="$(shell pwd)",target=/app/ final-project run.py run_model_pipeline --step featurize --input data/artifacts/cleaned.csv --config config/config.yaml --output data/artifacts/featurized.csv
+
+featurize: data/artifacts/featurized.csv
+
+models/rf.sav data/artifacts/x_test.csv data/artifacts/y_test.csv: data/artifacts/featurized.csv
+	docker run --mount type=bind,source="$(shell pwd)",target=/app/ final-project run.py run_model_pipeline --step train --input data/artifacts/featurized.csv --config config/config.yaml --output models/rf.sav data/artifacts/x_test.csv data/artifacts/y_test.csv
+
+train: models/rf.sav data/artifacts/x_test.csv data/artifacts/y_test.csv
+	
+data/artifacts/scored.csv: models/rf.sav data/artifacts/x_test.csv
+	docker run --mount type=bind,source="$(shell pwd)",target=/app/ final-project run.py run_model_pipeline --step score --input models/rf.sav data/artifacts/x_test.csv --config config/config.yaml --output data/artifacts/scored.csv
+
+score: data/artifacts/scored.csv
+	
+data/artifacts/evaluation_result.csv: data/artifacts/scored.csv data/artifacts/y_test.csv
+	docker run --mount type=bind,source="$(shell pwd)",target=/app/ final-project run.py run_model_pipeline --step evaluate --input data/artifacts/scored.csv data/artifacts/y_test.csv --config config/config.yaml --output data/artifacts/evaluation_result.csv
+
+evaluate: data/artifacts/evaluation_result.csv
+
+feature_importance: models/rf.sav
+	docker run --mount type=bind,source="$(shell pwd)",target=/app/ final-project run.py plot_feature_importance --input models/rf.sav --config config/config.yaml
+
+
+pipeline: acquire featurize train score evaluate
+
+
 
 image_app:
 	docker build -f dockerfiles/Dockerfile.app -t final-project-app .
 
 run_app:
-	docker run -e SQLALCHEMY_DATABASE_URI -p 127.0.0.1:5001:5001 heart_disease_app
+	docker run -e SQLALCHEMY_DATABASE_URI -p 5001:5001 final-project-app
