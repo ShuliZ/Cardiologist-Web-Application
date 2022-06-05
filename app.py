@@ -2,11 +2,13 @@ import logging
 import traceback
 import yaml
 from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy as SQA
+
+import pandas as pd
 
 from config.flaskconfig import AGE_CATEGORY, RACE, DIABETIC, GEN_HEALTH, BINARY, GENDER_CATEGORY
 from src.add_patients import PatientManager
-from src.predict import input_feature_engineer, input_predict
+from src.feature import featurize
+from src.predict import input_predict
 
 app = Flask(__name__, template_folder="app/templates", static_folder="app/static")
 app.config.from_pyfile("config/flaskconfig.py")
@@ -48,7 +50,7 @@ def index():
     except:
         traceback.print_exc()
         logger.warning("Not able to display the heart disease form, error page returned")
-        return render_template('errororg.html')
+        return render_template('error.html')
 
 
 @app.route("/result", methods=["GET", "POST"])
@@ -99,19 +101,26 @@ def add_entry():
                 "SkinCancer": request.form["skin"]
             }
             logger.debug("start prediction")
-            user_input_fe = input_feature_engineer(user_input, **conf["predict"]["input_feature_engineer"])
+            input_df = pd.DataFrame(user_input, index=[0])
+            user_input_fe = featurize(input_df, True, conf["feature"], **conf["feature"]["featurize"])
             logger.debug("user_input_fe: %s", user_input_fe.values)
             user_pred_prob = input_predict(user_input_fe, **conf["predict"]["input_predict"])[0]
             user_pred_text = input_predict(user_input_fe, **conf["predict"]["input_predict"])[1]
             logger.info("Probability %s", user_pred_prob)
-
-
-            logger.debug("Result page accessed")
+            logger.debug("Accessed Result page")
             return render_template('result.html', user_pred_prob=user_pred_prob, user_pred_text=user_pred_text)
         except:
             logger.warning("Not able to process your request, error page returned")
-            raise
-            return render_template('errororg.html')
+            return render_template('error.html')
+
+@app.route('/contact', methods=['GET'])
+def contact():
+    """View of an 'Contact Us' page that has the contact information
+    Returns:
+        rendered html template located at: app/templates/contact.html
+    """
+    logger.debug("Contact page accessed")
+    return render_template('contact.html')
 
 
 
