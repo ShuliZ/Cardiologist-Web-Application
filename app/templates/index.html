@@ -105,6 +105,22 @@
       li a:hover {
         background-color: rgb(255, 191, 191);
       }
+      .btn{
+        background-color: rgb(164, 186, 250);
+        text-align: center;
+        border-radius: 8px;
+        padding: 14px 40px;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+      .btn:hover { 
+        background-color: rgb(255, 191, 191);
+        box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),0 17px 50px 0 rgba(0,0,0,0.19); 
+      }
+
     </style>
 
     <title>CARDIOLOGIST</title>
@@ -120,9 +136,8 @@
   <div class="header-menu-container">
 
     <ul>
-      <li><a href="default.asp">Home</a></li>
-      <li><a href="news.asp">About</a></li>
-      <li><a href="contact.asp">Contact Us</a></li>
+      <li><a href="{{ url_for('index') }}">Home</a></li>
+      <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
     </ul>
 
   </div>
@@ -141,14 +156,22 @@
 
         <h2>Vision</h2>
         <p>
-          According to CDC, heart disease is the leading cause of death for men, women, and people of most racial and ethnic groups in the United States. About 659,000 people in the United States die from heart disease each year—that's 1 in every 4 deaths. Our AI-empowered heart disease diagnosis system could process patient symptoms, and help identify coronary heart disease (CHD) or myocardial infarction (MI). This productsaves patients time and cost for general doctor consultation, and improves health outcomes and medical resources allocations.
+          According to CDC, heart disease is the leading cause of death for men, women, and people of most racial 
+          and ethnic groups in the United States. About 659,000 people in the United States die from heart disease 
+          each year—that's 1 in every 4 deaths. Our AI-empowered heart disease diagnosis system could process patient 
+          symptoms, and help identify heart disease. This product saves patients time and cost for general doctor 
+          consultation, and improves health outcomes and medical resources allocations.
         </p>
 
         <h2>
           Mission
         </h2>
         <p>
-          This product aims to make online heart disease diagnoses by predicting the presence of the heart disease based on patients' answer to a series of questions about their heath status. It would also generate a summary report about their health conditions for the reference of the patients and doctors. The dataset used for this project was obtained from Personal Key Indicators of Heart Disease.
+          We provide online heart disease diagnostic services by predicting the presence of the heart disease based on 
+          patients' answer to a series of questions about their heath status. When the patients fill out the health assessment 
+          form on the right, our system will predict the probability of having have either coronary heart disease (CHD) or 
+          myocardial infarction (MI). Patients are identifies to have heart disease if they get a probability higher than 50%. 
+          Start free assessment now!
         </p>
       </div>
     </div>
@@ -294,7 +317,8 @@
             <br/>
             
             <br/>
-            <input type=submit value="Submit">
+            <!-- <input type=submit value="Submit"> -->
+            <button type="submit" class="btn">Predict</button>
           <dl>
         <form>
       </div>

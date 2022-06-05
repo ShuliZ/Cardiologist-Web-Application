@@ -51,34 +51,15 @@
       }
 
       .body-container {
-        background-color: #dae9fe;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 100%;
-        height: 100%;
+        text-align: center;
+        background-color: rgb(247, 249, 255);
       }
 
-      .body-element {
-        display: flex;
-        flex-direction: column;
-        flex-basis: 100%;
-        flex:1;
+      .body-container-text{
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
       }
-      .left {
-        width: 100%;
-        height: 100%;
-        margin: 50px;
-        padding-left: 10%;
-      }
-      .right {
-        line-height: 1.5 ;
-        width: 85%;
-        height: 100%;
-        margin: 50px;
-        margin-left: 0px;
-      }
-
       ul {
         list-style-type: none;
         margin: 0;
@@ -98,15 +79,17 @@
         padding: 5px 20px;
         text-decoration: none;
       }
+
       /* Change the link color to #111 (black) on hover */
       li a:hover {
         background-color: rgb(255, 191, 191);
       }
-
+      
     </style>
 
+    <link href="static/basic.css" rel="stylesheet">
 
-    <title>Prediction Results</title>
+    <title>About this Heart Disease Diagnosis System</title>
   </head>
   <body>
     <div class="header-container">
@@ -122,30 +105,37 @@
     </div>
 
     <div class="body-container">
-      <div class="body-element">
-        <div class="left">
-          <img src="../static/prediction_left.png" width=50% heigh=70%>
-        </div>
+
+      <img src="https://www.mccormick.northwestern.edu/analytics/images/contact/contact-us.jpg" width="100%"></img>
+      <hr/>
+      <div class="body-container-text">
+        <h1>
+          Contact Us
+        </h1>
+        <h2>
+          Project Developer
+        </h2>
+        <h3>
+          Shuli Zhu
+        </h3>
+        <p>
+          McCormick Education Center
+        </p>
+        <p>
+          Master of Science in Analytics
+          <br>
+          Northwestern University
+          <br>
+          2311 Campus Drive, Suite 1400
+          <br>
+          Evanston, IL 60208
+          <br>
+          Phone: 847-467-6750
+        </p>
+        <h3>CONTACT INFORMATION</h3>
+        <a href="mailto:shulizhu2022@u.northwestern.edu"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Image" width="30", height="30"></img></a>
+        <a href="https://www.linkedin.com/in/sheryl-shuli-zhu/"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Linkedin.svg" alt="Image" width="30", height="30"></img></a> 
       </div>
-
-      <div class="body-element">
-        <div class="right">
-          <h2>Your Heart Disease Diagnoses Result:</h2>
-
-          <hr/>
-      
-          <h3>
-            {{ user_pred_text }}.
-          </h3>
-          
-          <h3>
-            There is {{ user_pred_prob }}% probability that you have either coronary heart disease (CHD) or myocardial infarction (MI).
-          </h3>
-          <a href="{{ url_for('index') }}" style = "text-align:center;">Return to the Home Page to Get More Predictions</a>
-        </div>
-      </div>
-
-      
     </div>
   </body>
 </html>
