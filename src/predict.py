@@ -15,6 +15,7 @@ def input_predict(df, model_path, transformed_col):
     # load pre-trained model
     try:
         with open(model_path, 'rb') as f:
+            logger.info('Started import models.')
             loaded_rf = pickle.load(f)
     # common error
     except pickle.UnpicklingError as error_msg:
@@ -35,6 +36,9 @@ def input_predict(df, model_path, transformed_col):
         logger.debug("Pred prob is %s", pred_prob)
     except KeyError as error_msg:
         logger.warning('The column names are not matched.')
+        logger.error(error_msg)
+        return
+    except UnboundLocalError as error_msg:
         logger.error(error_msg)
         return
     else:
