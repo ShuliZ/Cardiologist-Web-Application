@@ -1,7 +1,10 @@
-.PHONY: image
+.PHONY: image image_app
 
 image:
 	docker build -f dockerfiles/Dockerfile -t final-project .
+
+image_app:
+	docker build -f dockerfiles/Dockerfile.app -t final-project-app .
 
 .PHONY: upload_file_to_s3 download_file_from_s3
 
@@ -52,8 +55,8 @@ pipeline: acquire featurize train score evaluate
 
 
 
-image_app:
-	docker build -f dockerfiles/Dockerfile.app -t final-project-app .
 
 run_app:
-	docker run -e SQLALCHEMY_DATABASE_URI -p 5001:5001 final-project-app
+	docker run --mount type=bind,source="$(shell pwd)",target=/app/ \
+      -e SQLALCHEMY_DATABASE_URI \
+      -p 5001:5001 final-project-app
