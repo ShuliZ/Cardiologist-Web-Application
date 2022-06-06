@@ -103,7 +103,6 @@ def add_entry():
             logger.debug("start prediction")
             input_df = pd.DataFrame(user_input, index=[0])
             user_input_fe = featurize(input_df, True, conf["feature"], **conf["feature"]["featurize"])
-            logger.debug("user_input_fe: %s", user_input_fe.values)
             user_pred_prob = input_predict(user_input_fe, **conf["predict"]["input_predict"])[0]
             user_pred_text = input_predict(user_input_fe, **conf["predict"]["input_predict"])[1]
             logger.info("Probability %s", user_pred_prob)
