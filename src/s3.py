@@ -1,6 +1,3 @@
-""""
-This module contains functions to interact with s3
-"""
 import logging
 import re
 import typing
@@ -14,10 +11,10 @@ logger = logging.getLogger(__name__)
 def parse_s3(path: str) -> typing.Tuple[str, str]:
     """Parse the S3 path to return bucket name and the S3 path
     Args:
-        path (str): input S3 path
+        path (`str`): input S3 path
     Returns:
-        s3bucket (str): S3 bucket name
-        path (str): S3 path
+        s3bucket (`str`): S3 bucket name
+        path (`str`): S3 path
     """
     # match the input path to the desired patterns
     regex = r's3://([\w._-]+)/([\w./_-]+)'
@@ -32,8 +29,8 @@ def parse_s3(path: str) -> typing.Tuple[str, str]:
 def upload_file_to_s3(local_path: str, s3_path: str) -> None:
     """Upload the file from local path to s3
     Args:
-        local_path (str): local path of the file
-        s3_path (str): s3 path the files to be uploaded to
+        local_path (`str`): local path of the file
+        s3_path (`str`): s3 path the files to be uploaded to
     Returns:
         None
     """
@@ -55,8 +52,8 @@ def upload_file_to_s3(local_path: str, s3_path: str) -> None:
 def download_file_from_s3(local_path: str, s3_path: str) -> None:
     """Download the file from s3 to the local path
     Args:
-        local_path (str): local path the files to be doanloaded to
-        s3_path (str): s3 path the files to be downloaded from
+        local_path (`str`): local path the files to be doanloaded to
+        s3_path (`str`): s3 path the files to be downloaded from
     Returns:
         None
     """
