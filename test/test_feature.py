@@ -96,7 +96,7 @@ def test_get_binary_data_happy():
     )
     # input dataframe
     df_in = pd.DataFrame(df_values, index = df_index, columns=df_columns)
-    df_test = get_binary_data(df_in, False, binary_col, TARGET_COL, binary_value)
+    df_test = get_binary_data(df_in, False, binary_col, binary_value, TARGET_COL)
     # Test if the true and output dataframes are the same
     pd.testing.assert_frame_equal(df_true, df_test)
 
