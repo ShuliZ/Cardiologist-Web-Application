@@ -9,6 +9,7 @@ from src.feature import get_binary_data, get_ohe_data, get_ordinalenc_age, get_o
 with open('config/config.yaml', 'r') as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
+# data frame initialization
 df_values = \
     [['No', 26.58, 'Yes', 'No', 'No', 20.0, 30.0, 'No', 'Male',
         '65-69', 'White', 'Yes', 'Yes', 'Fair', 8.0, 'Yes', 'No', 'No'],
@@ -24,13 +25,13 @@ df_columns = \
        'PhysicalHealth', 'MentalHealth', 'DiffWalking', 'Sex', 'AgeCategory',
        'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'SleepTime',
        'Asthma', 'KidneyDisease', 'SkinCancer']
-
+# parameters initialization
 binary_col = \
     ['Smoking','AlcoholDrinking',
     'Stroke','Asthma','DiffWalking','PhysicalActivity',
     'KidneyDisease','SkinCancer']
 
-target_col = 'HeartDisease'
+TARGET_COL = 'HeartDisease'
 
 binary_value = ['No', 'Yes']
 
@@ -47,7 +48,7 @@ required_col = \
     'Diabetic_Yes (during pregnancy)',
     'Sex_Male']
 
-age_col = 'AgeCategory'
+AGE_COL = 'AgeCategory'
 
 age_mapping = {
     '18-24': 0,
@@ -65,7 +66,7 @@ age_mapping = {
     '80 or older': 12
 }
 
-health_col = 'GenHealth'
+HEALTH_COL = 'GenHealth'
 
 health_mapping = {
     'Poor': 0,
@@ -79,6 +80,7 @@ num_columns = ['BMI', 'PhysicalHealth', 'MentalHealth', 'SleepTime']
 
 
 def test_get_binary_data_happy():
+    """test whether the get_binary_data function work as expected"""
     df_true = pd.DataFrame(
         [[0, 26.58, 1, 0, 0, 20.0, 30.0, 0, 'Male', '65-69', 'White',
         'Yes', 1, 'Fair', 8.0, 1, 0, 0],
@@ -92,8 +94,9 @@ def test_get_binary_data_happy():
        'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'SleepTime',
        'Asthma', 'KidneyDisease', 'SkinCancer']
     )
+    # input dataframe
     df_in = pd.DataFrame(df_values, index = df_index, columns=df_columns)
-    df_test = get_binary_data(df_in, False, binary_col, target_col, binary_value)
+    df_test = get_binary_data(df_in, False, binary_col, TARGET_COL, binary_value)
     # Test if the true and output dataframes are the same
     pd.testing.assert_frame_equal(df_true, df_test)
 
@@ -102,9 +105,10 @@ def test_get_binary_data_non_df():
     df_non = 'I am not a dataframe'
     # errors for wrong data frame type
     with pytest.raises(TypeError):
-        get_binary_data(df_non, False, binary_col, target_col, binary_value)
+        get_binary_data(df_non, False, binary_col, TARGET_COL, binary_value)
 
 def test_get_ohe_data_happy():
+    """test whether the get_ohe_data function work as expected"""
     df_true = pd.DataFrame(
         [['No', 26.58, 'Yes', 'No', 'No', 20.0, 30.0, 'No', '65-69', 'Yes',
         'Fair', 8.0, 'Yes', 'No', 'No', 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
@@ -123,6 +127,7 @@ def test_get_ohe_data_happy():
        'Race_White', 'Diabetic_No, borderline diabetes', 'Diabetic_Yes',
        'Diabetic_Yes (during pregnancy)', 'Sex_Male']
     )
+    # input dataframe
     df_in = pd.DataFrame(df_values, index = df_index, columns=df_columns)
     df_test = get_ohe_data(df_in, onehot_col, required_col)
 
@@ -139,6 +144,7 @@ def test_get_ohe_data_non_df():
 
 
 def test_get_ordinalenc_age_happy():
+    """test whether the function get_ordinalenc_age works as expected"""
     df_true = pd.DataFrame(
         [['No', 26.58, 'Yes', 'No', 'No', 20.0, 30.0, 'No', 'Male', 9,
          'White', 'Yes', 'Yes', 'Fair', 8.0, 'Yes', 'No', 'No'],
@@ -152,8 +158,9 @@ def test_get_ordinalenc_age_happy():
         'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'SleepTime',
         'Asthma', 'KidneyDisease', 'SkinCancer']
     )
+    # input dataframe
     df_in = pd.DataFrame(df_values, index = df_index, columns=df_columns)
-    df_test = get_ordinalenc_age(df_in, age_col, age_mapping)
+    df_test = get_ordinalenc_age(df_in, AGE_COL, age_mapping)
     # Test if the true and output dataframes are the same
     pd.testing.assert_frame_equal(df_true, df_test)
 
@@ -162,9 +169,10 @@ def test_get_ordinalenc_age_non_df():
     df_non = 'I am not a dataframe'
     # errors for wrong data frame type
     with pytest.raises(ValueError):
-        get_ordinalenc_age(df_non, age_col, age_mapping)
+        get_ordinalenc_age(df_non, AGE_COL, age_mapping)
 
 def test_get_ordinalenc_health_happy():
+    """test whether the function get_ordinalenc_health works as expected"""
     df_true = pd.DataFrame(
         [['No', 26.58, 'Yes', 'No', 'No', 20.0, 30.0, 'No', 'Male',
          '65-69', 'White', 'Yes', 'Yes', 1, 8.0, 'Yes', 'No', 'No'],
@@ -178,8 +186,9 @@ def test_get_ordinalenc_health_happy():
         'Race', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'SleepTime',
         'Asthma', 'KidneyDisease', 'SkinCancer']
     )
+    # input dataframe
     df_in = pd.DataFrame(df_values, index = df_index, columns=df_columns)
-    df_test = get_ordinalenc_health(df_in, health_col, health_mapping)
+    df_test = get_ordinalenc_health(df_in, HEALTH_COL, health_mapping)
     # Test if the true and output dataframes are the same
     pd.testing.assert_frame_equal(df_true, df_test)
 
@@ -188,9 +197,10 @@ def test_get_ordinalenc_health_non_df():
     df_non = 'I am not a dataframe'
     # errors for wrong data frame type
     with pytest.raises(ValueError):
-        get_ordinalenc_health(df_non, health_col, health_mapping)
+        get_ordinalenc_health(df_non, HEALTH_COL, health_mapping)
 
 def test_featurize_happy():
+    """test whether the function featurize works as expected"""
     df_true = pd.DataFrame(
         [[0,26.58,1,0,0,20.0,30.0,0,9,1,1,8.0,1,0,0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0],
         [1,28.87,1,0,0,6.0,0.0,1,11,0,1,12.0,0,0,0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,1.0],
@@ -203,6 +213,7 @@ def test_featurize_happy():
         'Race_White', 'Diabetic_No, borderline diabetes', 'Diabetic_Yes',
         'Diabetic_Yes (during pregnancy)', 'Sex_Male']
     )
+    # input dataframe
     df_in = pd.DataFrame(df_values, index = df_index, columns=df_columns)
     df_test = featurize(df_in, False, config['feature'], num_columns)
     print(df_test)

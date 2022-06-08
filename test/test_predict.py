@@ -1,5 +1,5 @@
-import pytest
 import pickle
+import pytest
 
 import pandas as pd
 import numpy as np
@@ -25,19 +25,19 @@ transformed_col = ['BMI','Smoking','AlcoholDrinking','Stroke','PhysicalHealth',
                    'Diabetic_Yes (during pregnancy)','Sex_Male']
 
 def test_input_predict_happy():
-    with open('models/rf.sav', 'rb') as f:
-        loaded_rf = pickle.load(f)
+    """test whether input_predict function words as expected"""
+    # open model
+    with open('models/rf.sav', 'rb') as model_file:
+        loaded_rf = pickle.load(model_file)
+    # compare true and test result
     true_result = np.array([73, 'You are LIKELY to have heart disease'])
-
-    
-    
     test_result = np.array(input_predict(df_in, loaded_rf, transformed_col))
-
     assert np.array_equal(true_result, test_result)
 
 
 def test_input_predict_non_model():
     """ Test invalid model type"""
     rf_model = 'I am not a model'
+    # raise error if the model has wrong type
     with pytest.raises(AttributeError):
         input_predict(df_in, rf_model, transformed_col)
