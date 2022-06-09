@@ -136,5 +136,4 @@ class PatientManager:
         except sqlite3.OperationalError:
             logger.error("Error page returned. Not able to add patient case to local sqlite.")
         except sqlalchemy.exc.OperationalError:
-            logger.error("Fail to connect to server. Please check \
-                            if you are connected to Northwestern VPN.")
+            logger.error("Fail to connect to server. Please check if you are connected to Northwestern VPN.")
