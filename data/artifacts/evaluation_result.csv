@@ -1,0 +1,5 @@
+Accuracy on test: 0.7126596726027612 
+False Negative Rate on test: 0.1960352422907489 
+                 Predicted negative  Predicted positive
+Actual negative               41201               17310
+Actual positive                1068                4380
