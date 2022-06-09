@@ -63,9 +63,3 @@ run_app:
 .PHONY: test
 tests:
 	docker run final-project-tests
-
-clean:
-	rm -f data/artifacts/*
-	rm -f figures/*
-	rm -f models/*
-	rm -rf .pytest_cache/
