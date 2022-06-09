@@ -18,7 +18,7 @@ from src.score import score, evaluate
 
 logging.config.fileConfig("config/logging/local.conf")
 logger = logging.getLogger("patient-pipeline")
-# pylint: disable=W0622,C0200,W0703
+# pylint: disable=W0622,C0200,W0703,W1514
 
 if __name__ == "__main__":
 
@@ -70,8 +70,8 @@ if __name__ == "__main__":
     elif sp_used == "run_model_pipeline":
         # load yaml configuration file
         try:
-            with open(args.config, "r") as f:
-                conf = yaml.load(f, Loader=yaml.FullLoader)
+            with open(args.config, "r") as conf_file:
+                conf = yaml.load(conf_file, Loader=yaml.FullLoader)
         # error when unable to find the config file
         except FileNotFoundError:
             logger.error("Configuration file from %s is not found", args.config)
