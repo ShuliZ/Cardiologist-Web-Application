@@ -192,7 +192,7 @@ docker run --mount type=bind,source="$(pwd)",target=/app/ final-project run.py r
 To compute the performance metrics and save them to the appropriate directory, please run
 
 ```bash
-docker run --mount type=bind,source="$(shell pwd)",target=/app/ final-project run.py run_model_pipeline --step evaluate --input data/artifacts/scored.csv data/artifacts/test.csv --config config/config.yaml --output data/artifacts/evaluation_result.csv
+docker run --mount type=bind,source="$(pwd)",target=/app/ final-project run.py run_model_pipeline --step evaluate --input data/artifacts/scored.csv data/artifacts/test.csv --config config/config.yaml --output data/artifacts/evaluation_result.csv
 ```
 
 ### 3. Configure Flask app 
