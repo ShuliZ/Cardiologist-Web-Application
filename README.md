@@ -138,7 +138,7 @@ make acquire
 ### 1. Initialize the database 
 
 #### SQLAlchemy Database URL Configuration
-SQLALCHEMY_DATABASE_URI is used for creating a database connection for both the relational data ingestion and web app components of the project. Please provide a SQLALCHEMY_DATABASE_URI  of either of the following formats: "{dialect}://{user}:{pasword}>@{host}:{port}/{database}" or "sqlite:///data/{databasename}.db"
+SQLALCHEMY_DATABASE_URI is used for creating a database connection for both the relational data ingestion and web app components of the project. Please provide a SQLALCHEMY_DATABASE_URI  of either of the following formats: ```'{dialect}://{user}:{pasword}>@{host}:{port}/{database}'``` or ```'sqlite:///data/{databasename}.db'```. Default is set to ```'sqlite:///data/patient.db'```
 
 #### Create the database
 To create the database locally or on RDS, please run the following command:
