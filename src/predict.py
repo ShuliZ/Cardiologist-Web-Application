@@ -45,7 +45,7 @@ def input_predict(df: pd.DataFrame,
 
 def predict(df: pd.DataFrame,
             config: typing.Dict,
-            model_path: str):
+            model_path: str) -> typing.List[str]:
     """perform prediction by loading the model from a specific path
 
     Args:
