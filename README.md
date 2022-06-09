@@ -1,4 +1,6 @@
-# MSiA423 Template Repository
+# MSiA423 Project: CARGIOLOGIST - Your AI Cardiologist
+
+### Project Developer: Shuli Zhu
 
 # Table of Contents
 * [Project Charter](#Project-Charter)
@@ -16,11 +18,11 @@
 
 ### Vision
 
-According to [CDC](https://www.cdc.gov/heartdisease/facts.htm), heart disease is the leading cause of death for men, women, and people of most racial and ethnic groups in the United States. About 659,000 people in the United States die from heart disease each year—that’s 1 in every 4 deaths. This product is an online heart disease diagnosis system. It could systematically process patient symptoms, generate health reports, and help identify heart diseases. This product saves patients time and cost for general doctor consultation, and improves health outcomes and medical resources allocations.
+According to [CDC](https://www.cdc.gov/heartdisease/facts.htm), heart disease is the leading cause of death for men, women, and people of most racial and ethnic groups in the United States. About 659,000 people in the United States die from heart disease each year—that’s 1 in every 4 deaths. This product is an online heart disease diagnosis system. It could systematically process patient symptoms, and help predict the probabilities of having heart diseases. This product saves patients time and cost for general doctor consultation, and improves health outcomes and medical resources allocations.
 
 ### Mission
 
-This product aims to make online heart disease diagnoses by predicting the presence of the heart disease based on patients’ answer to a series of questions about their heath status. It would also generate a summary report about their health conditions for the reference of the patients and doctors. The dataset used for this project was obtained from [Personal Key Indicators of Heart Disease](https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease).
+This product aims to make online heart disease diagnoses by predicting the presence of the heart disease based on patients’ answer to a series of questions about demography, lifestyle, health conditions, and diseases. The dataset used for this project was obtained from [Personal Key Indicators of Heart Disease](https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease).
 
 ### Success criteria
 
