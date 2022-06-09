@@ -11,7 +11,7 @@ def import_data(path: str) -> pd.DataFrame:
     Returns:
         data (:obj:`DataFrame <pandas.DataFrame>`): heart disease DataFrame
     """
-
+    # read data
     try:
         data = pd.read_csv(path)
     # error when unable to find the input file
