@@ -4,11 +4,11 @@
 * [Project Charter](#Project-Charter)
 * [Directory structure ](#Directory-structure)
 * [Running the app ](#Running-the-app)
-	* [0. Setup ](#0.-Setup)
-	* [1. Initialize the database ](#1.-Initialize-the-database)
-	* [2. Model Pipeline](#2.-Model-Pipeline)
-	* [3. Configure Flask app ](#3.-Configure-Flask-app)
-	* [4. Run the Flask app ](#4.-Run-the-Flask-app)
+	* [0. Setup ](#0-Setup)
+	* [1. Initialize the database ](#1-Initialize-the-database)
+	* [2. Model Pipeline](#2-Model-Pipeline)
+	* [3. Configure Flask app ](#3-Configure-Flask-app)
+	* [4. Run the Flask app ](#4-Run-the-Flask-app)
 * [Testing](#Testing)
 
 
