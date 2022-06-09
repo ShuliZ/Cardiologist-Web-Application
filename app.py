@@ -23,6 +23,7 @@ logger.debug("Web app log")
 patient_manager = PatientManager(app)
 
 # load yaml configuration file
+# pylint: disable=W1514
 try:
     with open("config/config.yaml", "r") as file:
         conf = yaml.load(file, Loader=yaml.FullLoader)
