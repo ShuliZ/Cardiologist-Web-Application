@@ -65,7 +65,7 @@ def evaluate(scored_df: pd.DataFrame,
                        columns=['Predicted negative', 'Predicted positive'])
     # convert dataframe to string for writting to output files
     df_string = confusion_matrix.to_string(header=True, index=True)
-    wtrite_acc = 'Accuracy on test: {:0.3f} \n'.format(accuracy)
-    write_fnr = 'False Negative Rate on test: {:0.3f} \n'.format(fnr)
+    wtrite_acc = 'Accuracy on test: ' + str(accuracy) + ' \n'
+    write_fnr = 'False Negative Rate on test: ' + str(fnr) + ' \n'
     output = [wtrite_acc, write_fnr, df_string]
     return output
