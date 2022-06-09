@@ -1,0 +1,138 @@
+s3:
+  download_file_from_s3:
+    local_path: data/sample/heart_2020_cleaned.csv
+    s3_path: s3://2022-msia423-zhu-shuli/data/heart_2020_cleaned.csv
+load:
+  import_data:
+    path: data/sample/heart_2020_cleaned.csv
+feature:
+  get_binary_data:
+    binary_col:
+      - Smoking
+      - AlcoholDrinking
+      - Stroke
+      - Asthma
+      - DiffWalking
+      - PhysicalActivity
+      - KidneyDisease
+      - SkinCancer
+    binary_value:
+      - 'No'
+      - 'Yes'
+    target_col: 'HeartDisease'
+  get_ohe_data:
+    onehot_col:
+      - Sex
+      - Race
+      - Diabetic
+    required_col:
+      - Race_Asian
+      - Race_Black
+      - Race_Hispanic
+      - Race_Other
+      - Race_White
+      - Diabetic_No, borderline diabetes
+      - Diabetic_Yes
+      - Diabetic_Yes (during pregnancy)
+      - Sex_Male
+  get_ordinalenc_age:
+    age_col: 'AgeCategory'
+    age_mapping:
+      '18-24': 0
+      '25-29': 1
+      '30-34': 2
+      '35-39': 3
+      '40-44': 4
+      '45-49': 5
+      '50-54': 6
+      '55-59': 7
+      '60-64': 8
+      '65-69': 9
+      '70-74': 10
+      '75-79': 11
+      '80 or older': 12
+  get_ordinalenc_health:
+    health_col: 'GenHealth'
+    health_mapping:
+      'Poor': 0
+      'Fair': 1
+      'Good': 2
+      'Very good': 3
+      'Excellent': 4
+  featurize:
+    num_columns:
+      - BMI
+      - PhysicalHealth
+      - MentalHealth
+      - SleepTime
+model:
+  train_test_split:
+    target: 'HeartDisease'
+    random_state: 10
+    test_size: 0.2
+  fit_model:
+    model_params:
+      random_state: 10
+      n_estimators: 100
+      min_samples_split: 6
+      min_samples_leaf: 4
+      max_depth: 10
+    sampling_strat: 'majority'
+    rand_state: 10
+    model_type: 'RandomForestClassifier'
+score:
+  score:
+    transformed_features:
+      - BMI
+      - Smoking
+      - AlcoholDrinking
+      - Stroke
+      - PhysicalHealth
+      - MentalHealth
+      - DiffWalking
+      - AgeCategory
+      - PhysicalActivity
+      - GenHealth
+      - SleepTime
+      - Asthma
+      - KidneyDisease
+      - SkinCancer
+      - Race_Asian
+      - Race_Black
+      - Race_Hispanic
+      - Race_Other
+      - Race_White
+      - Diabetic_No, borderline diabetes
+      - Diabetic_Yes
+      - Diabetic_Yes (during pregnancy)
+      - Sex_Male
+  evaluate:
+    target: 'HeartDisease'
+predict:
+  input_predict:
+    transformed_col:
+      - BMI
+      - Smoking
+      - AlcoholDrinking
+      - Stroke
+      - PhysicalHealth
+      - MentalHealth
+      - DiffWalking
+      - AgeCategory
+      - PhysicalActivity
+      - GenHealth
+      - SleepTime
+      - Asthma
+      - KidneyDisease
+      - SkinCancer
+      - Race_Asian
+      - Race_Black
+      - Race_Hispanic
+      - Race_Other
+      - Race_White
+      - Diabetic_No, borderline diabetes
+      - Diabetic_Yes
+      - Diabetic_Yes (during pregnancy)
+      - Sex_Male
+  predict:
+    model_path: models/rf.sav

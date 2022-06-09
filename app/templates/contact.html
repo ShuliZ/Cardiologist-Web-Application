@@ -1,0 +1,141 @@
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <link href="static/basic.css" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: rgb(210, 227, 251);
+      }
+
+      h1 {
+        font-size: 50px;
+      }
+
+      h2 {
+        font-size: 35px;
+      }
+
+      h3 {
+        font-size: 20px;
+      }
+
+      p {
+        font-size: 20px;
+      }
+
+      label {
+        text-align: justify;
+        text-justify: inter-word;
+        color: #303030;
+      }
+      input {
+        text-align: justify;
+        text-justify: inter-word;
+        color: #303030;
+      }
+
+      .header-container {
+        padding: 15px 15px 10px 10px;
+        background-position: 50% 50%;
+        background-size: cover;
+        background-color: rgb(247, 249, 255);
+      }
+      
+      .header-menu-container {
+        margin: 0px;
+        padding: 0%;
+        text-align: left;
+      }
+
+      .body-container {
+        text-align: center;
+        background-color: rgb(247, 249, 255);
+      }
+
+      .body-container-text{
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+      }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: rgb(203, 216, 254);
+      }
+
+      li {
+        float: left;
+      }
+
+      li a {
+        display: block;
+        color: rgb(8, 8, 8);
+        text-align: center;
+        padding: 5px 20px;
+        text-decoration: none;
+      }
+
+      /* Change the link color to #111 (black) on hover */
+      li a:hover {
+        background-color: rgb(255, 191, 191);
+      }
+      
+    </style>
+
+    <link href="static/basic.css" rel="stylesheet">
+
+    <title>Contact</title>
+  </head>
+  <body>
+    <div class="header-container">
+      <img aslign="left" src="../static/logo.png" width=300px heigh=100px>
+    </div>
+  
+  
+    <div class="header-menu-container">
+      <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="body-container">
+
+      <img src="https://www.mccormick.northwestern.edu/analytics/images/contact/contact-us.jpg" width="100%"></img>
+      <hr/>
+      <div class="body-container-text">
+        <h1>
+          Contact Us
+        </h1>
+        <h2>
+          Project Developer
+        </h2>
+        <h2>
+          Shuli Zhu
+        </h2>
+        <p>
+          McCormick Education Center
+        </p>
+        <p>
+          Master of Science in Analytics
+          <br>
+          Northwestern University
+          <br>
+          2311 Campus Drive, Suite 1400
+          <br>
+          Evanston, IL 60208
+          <br>
+          Phone: 847-467-6750
+        </p>
+        <h3>CONTACT INFORMATION</h3>
+        <a href="mailto:shulizhu2022@u.northwestern.edu"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Image" width="30", height="30"></img></a>
+        <a href="https://www.linkedin.com/in/sheryl-shuli-zhu/"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Linkedin.svg" alt="Image" width="30", height="30"></img></a> 
+      </div>
+    </div>
+  </body>
+</html>
