@@ -24,8 +24,10 @@ def get_binary_data(
     Returns:
         df (`pd.DataFrame`): data frame with binary columns get transformed
     """
+    # check whether the target is included
     if not is_user_input:
         binary_col += [target_col]
+    # binarize columns
     for col in binary_col:
         df[col] = df[col].replace(binary_value,[0,1])
     return df
@@ -46,7 +48,9 @@ def get_ohe_data(
     """
     onehot_df = df[onehot_col]
     non_onehot_df = df.drop(onehot_col, axis=1)
+    # create output with required columns
     output_df = pd.DataFrame(columns = required_col)
+    # one hot encoding
     for col in onehot_col:
         new_name = col + '_' + str(onehot_df[col].values[0])
         onehot_df = onehot_df.rename(columns={col: new_name})
@@ -70,6 +74,7 @@ def get_ordinalenc_age(
     Returns:
         t_df (:obj:`DataFrame <pandas.DataFrame>`): data frame with age column get transformed
     """
+    # age encoding
     age_encoder= ce.OrdinalEncoder(cols=[age_col],
                                    return_df=True,
                                    mapping=[{'col': age_col,
@@ -92,6 +97,7 @@ def get_ordinalenc_health(
     Returns:
         t_df (`pd.DataFrame`): data frame with general health column get transformed
     """
+    # health encodings
     health_encoder = ce.OrdinalEncoder(cols=[health_col],
                                        return_df=True,
                                        mapping=[{'col': health_col,
@@ -118,6 +124,7 @@ def featurize(
     # transform the user input into a pandas DataFrame
     for num in num_columns:
         input_df[num] = input_df[num].astype(float)
+    # run feature engineering process
     trans = get_binary_data(input_df, is_user_input, **config['get_binary_data'])
     trans = get_ohe_data(trans,  **config['get_ohe_data'])
     trans = get_ordinalenc_age(trans, **config['get_ordinalenc_age'])
