@@ -1,12 +1,12 @@
 import os
-DEBUG = True
-LOGGING_CONFIG = "config/logging/local.conf"
-PORT = 5001
+DEBUG = True # Keep True for debugging, change to False when moving to production
+LOGGING_CONFIG = "config/logging/local.conf" # Path to file that configures Python logger
+PORT = 5001 # What port to expose app on.
 APP_NAME = "heart-disease"
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 HOST = "0.0.0.0"
 SQLALCHEMY_ECHO = False  # If true, SQL for queries made will be printed
-MAX_ROWS_SHOW = 100
+MAX_ROWS_SHOW = 100 # Limits the number of rows returned from the database 
 
 
 SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
