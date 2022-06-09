@@ -39,7 +39,7 @@ def index():
         rendered html template located at: app/templates/index.html
     """
     try:
-        logger.debug("Index page accessed")
+        logger.info("Accessed Index page")
         # access index page with web information
         return render_template("index.html",
                                 smoking = BINARY,
@@ -113,12 +113,12 @@ def add_entry():
             "KidneyDisease": request.form["kidney"],
             "SkinCancer": request.form["skin"]
         }
-        logger.debug("start prediction")
         # make prediction based on user input
         input_df = pd.DataFrame(user_input, index=[0])
         user_input_fe = featurize(input_df, True, conf["feature"], **conf["feature"]["featurize"])
-        user_pred_prob = predict(user_input_fe, conf["predict"], **conf["predict"]["predict"])[0]
-        user_pred_text = predict(user_input_fe, conf["predict"], **conf["predict"]["predict"])[1]
+        user_pred = predict(user_input_fe, conf["predict"], **conf["predict"]["predict"])
+        user_pred_prob = user_pred[0]
+        user_pred_text = user_pred[1]
     # return error pages when unable to process the request
     except werkzeug.exceptions.BadRequestKeyError:
         logger.warning("Not able to process your request, error page returned")
