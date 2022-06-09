@@ -4,12 +4,12 @@
 * [Project Charter](#Project-Charter)
 * [Directory structure ](#Directory-structure)
 * [Running the app ](#Running-the-app)
+	* [0. Setup ](#0.-Setup)
 	* [1. Initialize the database ](#1.-Initialize-the-database)
-	* [2. Configure Flask app ](#2.-Configure-Flask-app)
-	* [3. Run the Flask app ](#3.-Run-the-Flask-app)
+	* [2. Model Pipeline](#2.-Model-Pipeline)
+	* [3. Configure Flask app ](#3.-Configure-Flask-app)
+	* [4. Run the Flask app ](#4.-Run-the-Flask-app)
 * [Testing](#Testing)
-* [Mypy](#Mypy)
-* [Pylint](#Pylint)
 
 
 ## Project Charter
@@ -44,11 +44,13 @@ Business Metrics
 ├── config                            <- Directory for configuration files 
 │   ├── local/                        <- Directory for keeping environment variables and other local configurations that *do not sync** to Github 
 │   ├── logging/                      <- Configuration of python loggers
+│   ├── config.yaml					  <- Configuration for model pipeline
 │   ├── flaskconfig.py                <- Configurations for Flask API 
 │
 ├── data                              <- Folder that contains data used or generated. Only the external/ and sample/ subdirectories are tracked by git. 
+│   ├── artifacts/					  <- Intermediate artifacts from model pipeline
 │   ├── external/                     <- External data sources, usually reference data,  will be synced with git
-│   ├── sample/                       <- Sample data used for code development and testing, will be synced with git
+│   ├── sample/                       <- Raw data used for code development and testing
 │
 ├── deliverables/                     <- Any white papers, presentations, final work products that are presented or delivered to a stakeholder 
 │
@@ -56,6 +58,7 @@ Business Metrics
 |
 ├── dockerfiles/                      <- Directory for all project-related Dockerfiles 
 │   ├── Dockerfile.app                <- Dockerfile for building image to run web app
+│   ├── Dockerfile.pylint		      <- Dockerfile for checking code style
 │   ├── Dockerfile.run                <- Dockerfile for building image to execute run.py  
 │   ├── Dockerfile.test               <- Dockerfile for building image to run unit tests
 │
@@ -67,17 +70,28 @@ Business Metrics
 │   ├── archive/                      <- Develop notebooks no longer being used.
 │   ├── deliver/                      <- Notebooks shared with others / in final state
 │   ├── develop/                      <- Current notebooks being used in development.
-│   ├── template.ipynb                <- Template notebook for analysis with useful imports, helper functions, and SQLAlchemy setup. 
 │
 ├── reference/                        <- Any reference material relevant to the project
 │
-├── src/                              <- Source data for the project. No executable Python files should live in this folder.  
+├── src/                              <- Source data for the project
+│	├── add_patients.py				  <- Python script that defines the data model
+│	├── feature.py			  		  <- Python script that generates new features
+│	├── load.py						  <- Python script that loads raw data and saves cleaned data
+│	├── model.py					  <- Python script that generates the trained model and train/test split data
+│	├── predict.py					  <- Python script that makes prediction based on user inputs
+│	├── s3.py						  <- Python script that upload or download raw data to or from s3 bucket
+│	├── score.py					  <- Python script that scores the model
 │
-├── test/                             <- Files necessary for running model tests (see documentation below) 
+├── test/                             <- Files necessary for running model tests
+│	├── test_feature.py				  <- Python script that tests function feature.py
+│	├── test_model.py				  <- Python script that tests function model.py
+│	├── test_predict.py				  <- Python script that tests function predict.py
+│	├── test_score.py				  <- Python script that tests function score.py
 │
 ├── app.py                            <- Flask wrapper for running the web app 
-├── run.py                            <- Simplifies the execution of one or more of the src scripts  
+├── Makefile						  <- Makefile that contains shortcuts to terminal commands
 ├── requirements.txt                  <- Python package dependencies 
+├── run.py                            <- Simplifies the execution of one or more of the src scripts
 ```
 
 ## Running the app 
@@ -135,6 +149,15 @@ docker run -e SQLALCHEMY_DATABASE_URI --mount type=bind,source="$(pwd)"/,target=
 
 ### 2. Model Pipeline
 
+#### Running Entire Model Pipeline
+To execute the entire model pipeline, please run
+
+```bash
+make pipeline
+```
+
+You can also execute each step of the model pipeline by following the instructions below.
+
 #### Acquire and Process Data
 To load the raw data from S3 bucket, clean and/or process it, and then save it to the appropriate directory, please run
 
@@ -170,14 +193,7 @@ To compute the performance metrics and save them to the appropriate directory, p
 docker run --mount type=bind,source="$(shell pwd)",target=/app/ final-project run.py run_model_pipeline --step evaluate --input data/artifacts/scored.csv data/artifacts/test.csv --config config/config.yaml --output data/artifacts/evaluation_result.csv
 ```
 
-#### Running Entire Model Pipeline
-To execute the entire model pipeline, please run
-
-```bash
-make pipeline
-```
-
-### 2. Configure Flask app 
+### 3. Configure Flask app 
 
 `config/flaskconfig.py` holds the configurations for the Flask app. It includes the following configurations:
 
@@ -211,7 +227,7 @@ BINARY = ['Yes', 'No']
 
 
 
-### 3. Run the Flask app 
+### 4. Run the Flask app 
 
 #### Build the image 
 
@@ -246,7 +262,7 @@ The arguments in the above command do the following:
 * The `-p 5001:5001` argument maps your computer's local port 5001 to the Docker container's port 5001 so that you can view the app in your browser.
 
 
-### 4.Testing
+## Testing
 If you want to run the unit tests, please be sure that you have built the image by running ```make image```.
 
 Then, run the following:
