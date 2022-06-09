@@ -6,6 +6,7 @@ import yaml
 from src.feature import get_binary_data, get_ohe_data, get_ordinalenc_age, get_ordinalenc_health, featurize
 
 # Load configuration file for parameters and tmo path
+# pylint: disable=W1514
 with open('config/config.yaml', 'r') as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
