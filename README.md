@@ -1,4 +1,4 @@
-# CARGIOLOGIST - Your AI Cardiologist
+# CARDIOLOGIST - Your AI Cardiologist
 
 ### Project Developer: Shuli Zhu
 
