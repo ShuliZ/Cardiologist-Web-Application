@@ -1,4 +1,4 @@
-# MSiA423 Project: CARGIOLOGIST - Your AI Cardiologist
+# CARGIOLOGIST - Your AI Cardiologist
 
 ### Project Developer: Shuli Zhu
 
